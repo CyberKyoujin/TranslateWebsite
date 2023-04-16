@@ -9,6 +9,7 @@ from django.contrib import messages
 from .models import Translation, Wordbook
 from django.db.models import Q
 
+from decouple import config
 import requests
 import PyPDF2
 import pytesseract
@@ -204,11 +205,11 @@ def convert(file, language1):
 
 def translate(text, language2, translator):
     if translator == 'gpt':
-        openai.api_key = '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'
+        openai.api_key = config('API_KEY1')
         completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{'role': 'user', 'content': 'Please:Translate this text or word into {language2}: {text}. In case if you can not carry out this translation or have another problem, just answer "Неправильный ввод. Попробуйте снова" without any further text'.format(text=text, language2=language2)}])
         return completion.choices[0].message.content
     elif translator == 'deepl':
-        translator = deepl.Translator("2fe99754-d80e-95ce-89bd-842826af5d86:fx")
+        translator = deepl.Translator(config('API_KEY2'))
         return translator.translate_text(text, target_lang=language2[0:2].upper())
     
 def detect_language(text):
