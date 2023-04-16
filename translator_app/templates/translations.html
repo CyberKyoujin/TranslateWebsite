@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block body_block %}
+{% if translations %}
+<div class="post-container">
+    {% for translation in translations %} 
+      <article class="card-post">
+      
+        <h1 class="card__title">{{ translation.client|truncatechars:17 }}</h1>
+      
+        <section class="card__content">
+           {{ translation.text|truncatechars:265 }}
+        </section>
+      
+        <section class="card__footer"> 
+         <small>{{ translation.date|date:"d.m.Y H:i" }}</small>
+         <a href="{% url 'translator_app:translation_delete' pk=translation.pk %}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+         <a href="{% url 'translator_app:translation_detail' pk=translation.pk %}" class="btn btn-success"><i class="fa fa-mail-forward"></i></a>
+        </section>
+  
+      </article>
+    {% endfor %}
+    </div>
+{% else %}
+    <div class="no-container">
+        <h1>У вас пока что нет сохранённых переводов.</h1>
+    </div>
+{% endif %}
+    <style>
+        .post-container{
+            display:flex;
+            flex-direction:row;
+            flex-wrap: wrap;
+            float: left;
+            margin-left: 130px;
+            margin-right: 50px;
+            margin-top: 0px;
+          }
+          
+          .no-container{
+            width: 1100px;
+            background-color: RGB(43 48 53);
+            padding: 20px;
+            border-radius: 1em;
+            margin: auto;
+            margin-top: 100px;
+            text-align: center;
+          }
+        
+          .card-post {
+            font-weight: 300;
+            font-size: 1rem;
+            width: 300px;
+            height: 360px;
+            margin: 40px 40px;
+           
+            box-shadow: 0 0 3px rgba(black, 0.3);
+            background-color: rgb(43,48,53);
+            padding: 10px 15px;
+            border-radius: 4px;
+          }
+          .card__title {
+            color: #fff;
+            font-size: 2.1em;
+            margin-top: 10px;
+            font-weight: normal;
+          }
+          
+          
+          .card__content {
+            font-weight: 300;
+            height: 200px;
+            margin-top: 20px;
+
+  
+            color: #fff;
+          }
+          .card__footer {
+            display: flex;
+            padding: 0.2em 0;
+            font-size: 0.8em;
+            height: 60px;
+            margin-top: 20px;
+            align-items: center;
+            font-weight: 300;
+            color: #1abc9c;
+          }
+          
+          .card__footer a{
+           width: 50px;
+           margin-left: 30px;
+           margin-bottom: 10px;
+           height: 2.3em;
+          }
+          
+          .card__footer a i{
+            color: #fff;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 10px;
+          }
+          .card__footer small{
+            font-size: 13px;
+            margin-bottom: 12px;
+          
+          }
+          
+          
+    </style>
+
+{% endblock body_block %}
+

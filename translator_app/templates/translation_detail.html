@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="name-container">
+        <h1 id="text">{{ object.client }}</h1>
+        <input type="text" style="display: none;" id="field" value="{{ object.client }}" name="client">
+    </div>
+        <div class="form-container">
+            <textarea placeholder="Оригинал" id="textarea1" name="text1">{{ object.text }}</textarea>
+            <textarea placeholder="Перевод" id="textarea2" name="text2">{{ object.translation }}</textarea>
+            <div class="btn-container">
+                <button class="btn btn-success" id="button-edit" type="button" style="border: none;">Редактировать</button>
+                <button class="btn btn-success" id="button-submit" type="submit" style="display: none;">Подтвердить</button>
+                <a href="{% url 'translator_app:translations' %}" class="btn btn-danger" id="back">Назад</a>
+            </div>
+
+            
+        </div>
+    </form>
+
+    <style>
+        .name-container{
+            width: 1200px;
+            background-color: rgb(43,48,53);
+            padding: 20px;
+            margin: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 1em;
+        }
+        .form-container{
+            width: 1200px;
+            background-color: rgb(43,48,53);
+            padding: 25px;
+            height: 620px;
+            margin: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 1em;
+        }
+        .btn-container{
+            width: 100%;
+            padding: 0px;
+            margin: auto;
+        }
+        button{
+            float: left;
+            margin-top: 20px;
+            width: 200px;
+            height: 40px;
+        }
+        #back{
+            float: right;
+            margin-top: 20px;
+        }
+        
+        #button-submit{
+
+            margin-left: 365px;
+        }
+
+        #field{
+            margin-top: 20px;
+            border-radius: 0.5em;
+        }
+        
+    </style>
+
+    <script>
+        var btn = document.getElementById('button-edit');
+        var btnSubmit = document.getElementById('button-submit');
+        var text = document.getElementById('text');
+        var field = document.getElementById('field');
+        
+        btn.onclick = function(){
+            if (text.style.display !== 'none'){
+                text.style.display = 'none';
+                field.style.display ='block';
+                btn.style.background = 'rgb(220,53,69)';
+                btn.innerHTML = 'Отмена';
+
+                btnSubmit.style.display = 'block';
+            }else{
+                text.style.display = 'block';
+                field.style.display ='none';
+                btn.style.background = 'rgb(25,135,84)';
+                btn.innerHTML = 'Редактировать';
+
+                btnSubmit.style.display = 'none';
+            }
+
+        }
+        
+
+    </script>
+
+{% endblock body_block %}

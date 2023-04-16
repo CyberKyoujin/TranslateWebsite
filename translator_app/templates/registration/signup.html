@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<div class="testbox">
+
+    <form method="POST">
+      {% csrf_token %}
+      <div class="container">
+        <h1>Регистрация</h1>
+        <p>Пожалуйста, заполните эту форму чтобы создать аккаунт.</p>
+        <hr>
+    
+        <label for="username"><b>Имя пользователя</b></label>
+        {{ user_form.username }}
+
+        <label for="pass1"><b>Пароль</b></label>
+        {{ user_form.password1 }}
+
+        <label for="pass2"><b>Подтвердите пароль</b></label>
+        {{ user_form.password2 }}
+
+        <hr>
+    
+        <button type="submit" class="registerbtn">Зарегистрироваться</button>
+      </div>
+    
+      <div class="container signin" style="width:fit-content;margin-left:570px;">
+        <p>Уже есть аккаунт? <a href="{% url 'translator_app:login' %}">Войдите</a>.</p>
+      </div>
+    </form>
+
+    {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+          {{ error_message }}
+        </div>
+        {% endif %}
+
+        {% if username_exists %}
+        <div class="alert alert-danger" role="alert">
+          Выбранное вами имя пользователя уже существует, пожалуйста, выберите другое
+        </div>
+        {% endif %}
+
+        {% if password_too_short %}
+        <div class="alert alert-danger" role="alert">
+          Пароль должен состоять минимум из 8 символов и содержать символы верхнего регистра
+        </div>
+        {% endif %}
+  
+  </div>
+{% endblock body_block %}

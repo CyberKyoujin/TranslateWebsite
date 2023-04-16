@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<div class="main-container">
+<form class="" method="post">
+    {% csrf_token %}
+    <h1>Вы точно хотите удалить {{ object.phrase|truncatechars:10 }} ?</h1>
+    <input type="submit" class="btn btn-danger" value="Удалить">
+    <a href="{% url 'translator_app:wordbook' %}" class="btn btn-success">Назад</a>
+</form>
+</div>
+
+<style>
+    .main-container{
+        background-color: rgb(51,52,58);
+        width:800px;
+        height: 150px;
+        margin: auto;
+        text-align: center;
+        margin-top: 120px;
+        padding: 30px;
+        border-radius: 1em;
+    }
+    h1{
+        font-size: 20px;
+    }
+    .btn{
+        margin-top: 15px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+</style>
+
+{% endblock body_block %}
